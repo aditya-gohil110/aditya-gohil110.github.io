@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditya Gohil — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Archivo+Black&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #E4EDD9;
+    --ink: #2B1E14;
+    --accent: #C1440E;
+    --card: #D9E4CA;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.5;
+  }
+  a { color: var(--ink); }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+
+  /* NAV */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--bg);
+    border-bottom: 4px solid var(--ink);
+  }
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; max-width: 1240px; margin: 0 auto;
+  }
+  .logo { font-family: 'Archivo Black', sans-serif; font-size: 20px; text-decoration: none; cursor: pointer; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { text-decoration: none; font-weight: 700; font-size: 14px; letter-spacing: 0.02em; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-toggle { display: none; background: none; border: 3px solid var(--ink); padding: 6px 10px; font-family: inherit; font-weight: 700; cursor: pointer; }
+
+  /* HERO */
+  .hero { padding: 70px 0 56px; border-bottom: 4px solid var(--ink); }
+  .hero-tag {
+    display: inline-block; font-size: 15px; font-weight: 700;
+    border: 3px solid var(--ink); padding: 6px 14px; margin-bottom: 26px;
+  }
+  .hero h1 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 64px; line-height: 0.98; letter-spacing: -0.01em;
+    margin-bottom: 26px;
+  }
+  .hero h1 .hl { background: var(--accent); color: var(--bg); padding: 0 10px; }
+  .hero p { font-size: 18px; max-width: 560px; margin-bottom: 32px; }
+  .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; font-weight: 700; font-size: 14px;
+    padding: 13px 22px; text-decoration: none; border: 3px solid var(--ink);
+  }
+  .btn-primary { background: var(--ink); color: var(--bg); }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+  .btn-secondary:hover { background: var(--ink); color: var(--bg); }
+
+  /* SECTION HEADERS */
+  .section { padding: 56px 0; border-bottom: 4px solid var(--ink); scroll-margin-top: 72px; }
+  .section-label {
+    font-family: 'Archivo Black', sans-serif; font-size: 13px;
+    color: var(--accent); margin-bottom: 8px; letter-spacing: 0.02em;
+  }
+  .section-title { font-family: 'Archivo Black', sans-serif; font-size: 34px; margin-bottom: 34px; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; }
+  .about-grid p { font-size: 16px; margin-bottom: 16px; }
+  .edu-card { border: 3px solid var(--ink); padding: 20px; margin-bottom: 16px; background: var(--card); }
+  .edu-card:last-child { margin-bottom: 0; }
+  .edu-card .school { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+  .edu-card .degree { font-size: 14px; margin-bottom: 4px; }
+  .edu-card .dates { font-size: 13px; color: var(--accent); font-weight: 700; }
+
+  /* EXPERIENCE */
+  .exp-item { display: grid; grid-template-columns: 90px 1fr; gap: 24px; padding: 28px 0; border-top: 3px solid var(--ink); }
+  .exp-item:first-of-type { border-top: none; }
+  .exp-num { font-family: 'Archivo Black', sans-serif; font-size: 32px; color: var(--accent); }
+  .exp-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .exp-role { font-weight: 700; font-size: 19px; }
+  .exp-company { font-size: 15px; }
+  .exp-dates { font-size: 13px; color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .exp-item ul { padding-left: 20px; font-size: 14.5px; }
+  .exp-item li { margin-bottom: 6px; }
+  .exp-para { font-size: 15px; margin-bottom: 14px; max-width: 620px; }
+  .exp-metrics {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.03em;
+    text-transform: uppercase; color: var(--accent);
+  }
+
+  /* PROJECTS */
+  .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .proj-card {
+    border: 3px solid var(--ink); padding: 26px; background: var(--card);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .proj-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 6px 6px 0 var(--accent);
+    border-color: var(--accent);
+  }
+  .proj-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; transition: color 0.18s ease; }
+  .proj-card:hover h3 { color: var(--accent); }
+  .proj-card p { font-size: 14px; margin-bottom: 14px; }
+  .proj-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .proj-tag { font-size: 11px; font-weight: 700; padding: 4px 9px; border: 2px solid var(--ink); transition: border-color 0.18s ease; }
+  .proj-card:hover .proj-tag { border-color: var(--accent); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .skill-group .skill-label { font-weight: 700; font-size: 14px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.03em; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag { font-size: 13px; padding: 6px 12px; background: var(--card); border: 2px solid var(--ink); }
+
+  /* HOW I THINK */
+  .think-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border: 3px solid var(--ink);
+  }
+  .think-cell {
+    padding: 30px 24px; border-right: 3px solid var(--ink); background: var(--card);
+  }
+  .think-cell:last-child { border-right: none; }
+  .think-badge {
+    display: inline-block; font-family: 'Archivo Black', sans-serif;
+    font-size: 13px; background: var(--accent); color: var(--bg);
+    padding: 4px 10px; margin-bottom: 18px;
+  }
+  .think-cell h3 {
+    font-size: 15px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.02em; margin-bottom: 12px;
+  }
+  .think-cell p { font-size: 14px; line-height: 1.55; }
+
+  /* PUBLICATIONS */
+  .pub-item { padding: 20px 0; border-top: 3px solid var(--ink); display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; }
+  .pub-item:first-of-type { border-top: none; }
+  .pub-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+  .pub-venue { font-size: 13px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+  .pub-doi { font-size: 12px; text-decoration: none; border-bottom: 2px solid var(--accent); white-space: nowrap; font-weight: 700; }
+
+  /* CONTACT */
+  .contact { padding: 70px 0; border-bottom: none; scroll-margin-top: 72px; }
+  .contact h2 {
+    font-family: 'Archivo Black', sans-serif; font-size: 46px;
+    line-height: 1.05; margin-bottom: 24px;
+  }
+  .contact h2 .hl { color: var(--accent); }
+  .contact p { font-size: 17px; max-width: 500px; margin-bottom: 32px; }
+  .contact-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  .contact-meta {
+    margin-top: 36px; font-size: 13px; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink); opacity: 0.55;
+  }
+
+  footer { padding: 24px 28px; font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .nav-links.open {
+      display: flex; flex-direction: column; gap: 0;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--bg); border-bottom: 4px solid var(--ink);
+    }
+    .nav-links.open a { display: block; width: 100%; padding: 14px 28px; border-top: 2px solid var(--ink); }
+    .hero h1 { font-size: 40px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; }
+    .exp-num { font-size: 22px; }
+    .proj-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .think-grid { grid-template-columns: 1fr; }
+    .think-cell { border-right: none; border-bottom: 3px solid var(--ink); }
+    .think-cell:last-child { border-bottom: none; }
+    .pub-item { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .contact h2 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#" class="logo" id="logoLink">AG<span>.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">MENU</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-tag">ML • Infra • Builder</div>
+    <h1>ADITYA BUILDS<br><span class="hl">SYSTEMS</span><br>THAT SCALE.</h1>
+    <p>Currently chasing a master's in Information Systems at NYU, but the real fun starts a few layers down: untangling backend logic, wrangling a stubborn model into convergence, or shipping something that actually works on the first try. I go looking for problems that don't have a clean answer yet, mostly to find out what breaks first.</p>
+    <div class="btn-row">
+      <a href="#experience" class="btn btn-primary">View the work</a>
+      <a href="#contact" class="btn btn-secondary">Get in touch</a>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="section-label">01 — EXPERIENCE</div>
+    <h2 class="section-title">Where I've worked</h2>
+
+    <div class="exp-item">
+      <div class="exp-num">01</div>
+      <div>
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">Deep learning intern</div>
+            <div class="exp-company">Advanced Research LLC — Pompano Beach, FL</div>
+          </div>
+          <div class="exp-dates">Jan 2025 – Jun 2025</div>
+        </div>
+        <p class="exp-para">Built and deployed a CNN-based glaucoma detection model, combining segmentation and classification stages and designing image preprocessing pipelines with normalization and augmentation on Hadoop and Azure to cut training bottlenecks across distributed jobs.</p>
+        <div class="exp-metrics">91% ACCURACY · F1 0.74 → 0.89 · 18% LESS TRAINING ERROR</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-num">02</div>
+      <div>
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">Software development intern</div>
+            <div class="exp-company">Nova Softwares Ltd. — Bharuch, India</div>
+          </div>
+          <div class="exp-dates">May 2024 – Jul 2024</div>
+        </div>
+        <p class="exp-para">Owned full-stack development solo — frontend, backend, and deployment — building notes, planner, and reminder modules with reliable data persistence for a Flutter productivity app launched to the Apple App Store.</p>
+        <div class="exp-metrics">500+ DOWNLOADS · 3.8 → 4.5 RATING · ZERO ROLLBACKS</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-num">03</div>
+      <div>
+        <div class="exp-head">
+          <div>
+            <div class="exp-role">Software development intern</div>
+            <div class="exp-company">Institute of Plasma Research — Ahmedabad, India</div>
+          </div>
+          <div class="exp-dates">Jan 2023 – Jun 2023</div>
+        </div>
+        <p class="exp-para">Shipped a cross-platform internal workspace app in Flutter and PHP with a multi-threaded client-server architecture for real-time clock-in, calendar, and task tracking, and automated manual data entry workflows across research team operations.</p>
+        <div class="exp-metrics">80+ STAFF · 3 DEPARTMENTS · 50% LESS INPUT TIME</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="section-label">02 — PROJECTS</div>
+    <h2 class="section-title">Things I've built</h2>
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <h3>Multi-cloud AI support platform</h3>
+        <p>Peer-to-peer AI customer support system spanning AWS, GCP, and Azure with no central orchestrator. RAG pipeline on Gemini 2.5 Flash with FAISS vector search hits 95%+ intent classification confidence, with human-in-the-loop review for edge cases.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">AWS</span><span class="proj-tag">GCP</span><span class="proj-tag">Azure</span><span class="proj-tag">RAG</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <h3>Serverless event-driven automation</h3>
+        <p>Fault-tolerant pipeline on Lambda, SQS, and SNS handling 10,000+ events a day at 99.9% uptime. Retry logic and dead-letter queues automatically recover 98% of failed events with zero manual intervention.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Lambda</span><span class="proj-tag">SQS</span><span class="proj-tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <h3>Real-time auction platform</h3>
+        <p>Full-stack auction system supporting 500 concurrent bidders via Socket.IO. Optimized MySQL transactions and indexing to eliminate race conditions in bid logic, holding 100% data integrity under concurrent writes.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Django</span><span class="proj-tag">React</span><span class="proj-tag">Socket.IO</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <h3>Real-time fraud detection</h3>
+        <p>Streaming pipeline processing 2M+ financial transactions a day with Apache Spark, feeding a CNN classifier that hits 94% precision at a sub-2% false positive rate.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Spark</span><span class="proj-tag">CNN</span><span class="proj-tag">Python</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="section-label">03 — PROCESS</div>
+    <h2 class="section-title">How I think</h2>
+    <div class="think-grid">
+      <div class="think-cell">
+        <div class="think-badge">01</div>
+        <h3>Understand before I fix</h3>
+        <p>I try to know why something's actually failing before I start changing things. It's saved me from patching the wrong problem more than once.</p>
+      </div>
+      <div class="think-cell">
+        <div class="think-badge">02</div>
+        <h3>Plan for things going wrong</h3>
+        <p>Systems break eventually. I try to build so that recovery doesn't depend on someone noticing at 2am.</p>
+      </div>
+      <div class="think-cell">
+        <div class="think-badge">03</div>
+        <h3>Check assumptions with real feedback</h3>
+        <p>I've learned not to fully trust my own guesses about what's useful. Talking to whoever's actually using something usually teaches me something I missed.</p>
+      </div>
+      <div class="think-cell">
+        <div class="think-badge">04</div>
+        <h3>Make it make sense to others</h3>
+        <p>Technical work doesn't help much if no one can act on it. I try to explain what I build in a way that's actually useful to the person reading it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="section-label">04 — SKILLS</div>
+    <h2 class="section-title">What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-label">Languages</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">C++</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span><span class="skill-tag">HTML/CSS</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Frameworks &amp; libraries</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Django</span><span class="skill-tag">Flask</span><span class="skill-tag">React</span><span class="skill-tag">Node.js</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Apache Spark</span><span class="skill-tag">XGBoost</span><span class="skill-tag">Socket.IO</span><span class="skill-tag">Flutter</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Cloud, DevOps &amp; APIs</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS</span><span class="skill-tag">GCP</span><span class="skill-tag">Azure</span><span class="skill-tag">Docker</span><span class="skill-tag">Kubernetes</span><span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">CI/CD</span><span class="skill-tag">REST APIs</span><span class="skill-tag">Webhooks</span><span class="skill-tag">OAuth</span><span class="skill-tag">Power Automate</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">AI &amp; agentic systems</div>
+        <div class="skill-tags">
+          <span class="skill-tag">LLMs (Claude, GPT, Gemini)</span><span class="skill-tag">RAG</span><span class="skill-tag">Embeddings</span><span class="skill-tag">Prompt Engineering</span><span class="skill-tag">Chain-of-Thought</span><span class="skill-tag">Agentic AI</span><span class="skill-tag">Vector Databases</span><span class="skill-tag">LangChain</span><span class="skill-tag">Human-in-the-Loop Design</span><span class="skill-tag">n8n</span><span class="skill-tag">Claude Code</span><span class="skill-tag">Cursor</span><span class="skill-tag">Replit</span><span class="skill-tag">Lovable</span><span class="skill-tag">GitHub Copilot</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">ML, data &amp; analytics</div>
+        <div class="skill-tags">
+          <span class="skill-tag">CNNs</span><span class="skill-tag">Image Segmentation</span><span class="skill-tag">Feature Engineering</span><span class="skill-tag">Data Pipelines</span><span class="skill-tag">Stream Processing</span><span class="skill-tag">ETL</span><span class="skill-tag">Predictive Modeling</span><span class="skill-tag">Tableau</span><span class="skill-tag">Power BI</span><span class="skill-tag">Google Analytics</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Databases</div>
+        <div class="skill-tags">
+          <span class="skill-tag">MySQL</span><span class="skill-tag">Microsoft SQL Server</span><span class="skill-tag">PostgreSQL</span><span class="skill-tag">Firestore</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">Product &amp; research</div>
+        <div class="skill-tags">
+          <span class="skill-tag">User Research</span><span class="skill-tag">UX Prototyping</span><span class="skill-tag">Backlog Prioritization</span><span class="skill-tag">Stakeholder Communication</span><span class="skill-tag">Technical Writing</span><span class="skill-tag">Responsible AI</span><span class="skill-tag">Agile</span><span class="skill-tag">Jira</span><span class="skill-tag">Figma</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-label">CS fundamentals</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Structures</span><span class="skill-tag">Algorithms</span><span class="skill-tag">Multi-threading</span><span class="skill-tag">Concurrency</span><span class="skill-tag">Distributed Systems</span><span class="skill-tag">Hadoop</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="research">
+    <div class="section-label">05 — RESEARCH</div>
+    <h2 class="section-title">What I've published</h2>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">X-CaD: Explainable AI for Skin Cancer Diagnosis in Healthcare 4.0 Telesurgery</div>
+        <div class="pub-venue">IEEE ICC, 2024</div>
+      </div>
+      <a class="pub-doi" href="https://doi.org/10.1109/ICC51166.2024.10622832" target="_blank" rel="noopener">DOI ↗</a>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">Explainable AI for Gastrointestinal Disease Diagnosis in Telesurgery Healthcare 4.0</div>
+        <div class="pub-venue">ScienceDirect, 2024</div>
+      </div>
+      <a class="pub-doi" href="https://doi.org/10.1016/j.compeleceng.2024.109414" target="_blank" rel="noopener">DOI ↗</a>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">DL-Based DDoS Attack Detection in SDN-Assisted Healthcare 4.0 Telesurgery Networks</div>
+        <div class="pub-venue">IEEE INCET, 2024</div>
+      </div>
+      <a class="pub-doi" href="https://doi.org/10.1109/INCET61516.2024.10593575" target="_blank" rel="noopener">DOI ↗</a>
+    </div>
+
+    
+
+    
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">Machine Learning-Based Framework for Malware Detection in Critical Infrastructures for Smart Cities</div>
+        <div class="pub-venue">IEEE APCIT, 2024</div>
+      </div>
+      <a class="pub-doi" href="https://doi.org/10.1109/APCIT62007.2024.10673652" target="_blank" rel="noopener">DOI ↗</a>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">Deep Learning and Proxy Smart Contract-Based Supply Chain Management for Electric Vehicles</div>
+        <div class="pub-venue">IEEE ICPEICES, 2024</div>
+      </div>
+      <a class="pub-doi" href="https://doi.org/10.1109/ICPEICES62430.2024.10719230" target="_blank" rel="noopener">DOI ↗</a>
+    </div>
+
+    <div class="pub-item">
+      <div>
+        <div class="pub-title">Proxy-Based Verification of Smart Contracts</div>
+        <div class="pub-venue">IEEE ICCCIS, 2023</div>
+      </div>
+      <a class="pub-doi" href="https://doi.org/10.1109/ICCCIS60361.2023.10425319" target="_blank" rel="noopener">DOI ↗</a>
+    </div>
+
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-label">06 — ABOUT</div>
+    <h2 class="section-title">Who I am</h2>
+    <div class="about-grid">
+      <div>
+        <p>I studied Computer Science in India before moving to New York for a Master's in Information Systems. I thought I'd eventually have to pick between machine learning, backend systems, or mobile development. Turns out, I don't always have to.</p>
+        <p>Most of the projects I've enjoyed have had one thing in common: they started out a little messy. A model that behaved differently every week. A backend that worked right up until real users showed up. A workflow held together by good intentions and sticky notes. I like being the person who figures out why it's messy before trying to make it better.</p>
+        <p>I'm generally skeptical of quick fixes, surprisingly patient with debugging, and mildly suspicious of any system that claims to be "production-ready" without earning it first. That's probably why I enjoy building things that are meant to stick around, not just survive the demo.</p>
+      </div>
+      <div>
+        <div class="edu-card">
+          <div class="school">New York University</div>
+          <div class="degree">M.S., Information Systems — GPA 3.6</div>
+          <div class="dates">Aug 2025 – May 2027 (expected)</div>
+        </div>
+        <div class="edu-card">
+          <div class="school">Nirma University</div>
+          <div class="degree">B.Tech, Computer Science — GPA 3.5</div>
+          <div class="dates">Aug 2021 – May 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>LET'S BUILD<br>SOMETHING <span class="hl">TOGETHER.</span></h2>
+    <p>Open to internships, projects and problems for 2026.<br>Reach out. I usually reply within a day.</p>
+    <div class="contact-links">
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aditya.gohil110@gmail.com" target="_blank" rel="noopener" class="btn btn-primary">Email me</a>
+      <a href="https://www.linkedin.com/in/aditya-gohil-6932262b5" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
+      <a href="https://github.com/aditya-gohil110" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+      <a href="Aditya_CV.pdf" class="btn btn-secondary">Resumé</a>
+    </div>
+    <div class="contact-meta">New York, NY · Open to relocate · Graduating May 2027</div>
+  </section>
+
+</div>
+
+<footer>
+  <span>© Aditya Gohil • 2026</span>
+  <span>Trust the process</span>
+</footer>
+
+<script>
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+  document.getElementById('logoLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
