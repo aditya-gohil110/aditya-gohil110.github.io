@@ -499,9 +499,10 @@
     a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
   });
   document.getElementById('logoLink').addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  history.replaceState(null, '', window.location.pathname + window.location.search); // ← add this line
+});
 </script>
 
 </body>
